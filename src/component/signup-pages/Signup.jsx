@@ -27,41 +27,34 @@ const Signup = () => {
 
 
     const onSignup = async () => {
-
-        if(phone !==""){
-            
-        try {
-            setPhnErrMsg("")
-            // Initialize reCAPTCHA verifier with the reCAPTCHA container element
-            const recaptcha = new RecaptchaVerifier(auth, 'recaptcha', {});
-
-            // Sign in with phone number
-            const phoneFormat = '+' + phone
-            const confirmation = await signInWithPhoneNumber(auth, phoneFormat, recaptcha);
-            // console.log(confirmation);
-            setUser(confirmation)
-            setOpen(!open)
-            setPhone('')
-
-            const intervalId = setInterval(() => {
-                setTiming(prevTiming => {
-                    const newTiming = prevTiming > 0 ? prevTiming - 1 : 0;
-                    return newTiming < 10 ? '0' + newTiming : newTiming;
-                });
-            }, 1000);
-        } catch (err) {
-            // console.log(err);
-            setPhone('');
-            setPhnErrMsg("Invalid Phone Number Please Try Again")
-            setTimeout(() => {
-                window.location.reload();
-            }, 3000);
+        if (phone !== "") {
+            try {
+                setPhnErrMsg('');
+                const phoneFormat = '+' + phone;
+                const recaptcha = new RecaptchaVerifier(auth, 'recaptcha', {});
+                const confirmation = await signInWithPhoneNumber(auth, phoneFormat, recaptcha);
+                setUser(confirmation);
+                setOpen(false);
+                setPhone('');
+                const intervalId = setInterval(() => {
+                    setTiming(prevTiming => {
+                        const newTiming = prevTiming > 0 ? prevTiming - 1 : 0;
+                        return newTiming < 10 ? '0' + newTiming : newTiming;
+                    });
+                }, 1000);
+            } catch (err) {
+                console.error("Firebase Authentication Error:", err);
+                setPhnErrMsg("Failed to sign up. Please try again later.");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
+            }
+        } else {
+            setPhnErrMsg("Please enter your phone number.");
+           
         }
-        }else{
-            setPhnErrMsg("Please Enter Your Phone Number")
-        }
-
     };
+    
 
     const handleVerify = async () => {
         // Perform OTP verification logic here
