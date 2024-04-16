@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { IoIosCloseCircle } from "react-icons/io";
+
+import { IoMdArrowRoundBack } from "react-icons/io";
+
 
 import { v4 } from 'uuid';
 import { db } from '../signup-pages/firebase.config'; // Assuming you have the Firebase configuration exported from this file
@@ -41,7 +43,7 @@ function Form({ selected, onBack }) {
     setSelectedOption(selectedOption);
 
     if (selectedOption === "Others") {
-      setOtherOptionInput('');r
+      setOtherOptionInput(''); r
     }
   }
 
@@ -80,8 +82,8 @@ function Form({ selected, onBack }) {
     setEmail('');
     setPhoneNumber('');
     setAddress('');
-    if(fileInputRef.current){
-      fileInputRef.current.value="";
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
     }
     setSelectedOption('');
     setOtherOptionInput('');
@@ -115,24 +117,24 @@ function Form({ selected, onBack }) {
 
   const processForm = async (imgUrls) => {
     try {
-        const firestore = getFirestore(); // Ensure db is correctly initialized
-        const valRef = collection(firestore, "textdata"); // Use firestore instead of db
-        const selectedOptionValue = selectedOption === 'Others' ? otherOptionInput : selectedOption;
-        await addDoc(valRef, {
-            fullname: `${firstName} ${lastName}`,
-            email: email,
-            phone: phoneNumber,
-            selectedOption: selectedOptionValue,
-            address: address,
-            imgUrls: imgUrls
-        });
-        clearForm();
-        console.log("Form submitted successfully.");
+      const firestore = getFirestore(); // Ensure db is correctly initialized
+      const valRef = collection(firestore, "textdata"); // Use firestore instead of db
+      const selectedOptionValue = selectedOption === 'Others' ? otherOptionInput : selectedOption;
+      await addDoc(valRef, {
+        fullname: `${firstName} ${lastName}`,
+        email: email,
+        phone: phoneNumber,
+        selectedOption: selectedOptionValue,
+        address: address,
+        imgUrls: imgUrls
+      });
+      clearForm();
+      console.log("Form submitted successfully.");
     } catch (error) {
-        console.error("Error adding document:", error.message);
-        throw new Error('Error submitting form. Please try again.');
+      console.error("Error adding document:", error.message);
+      throw new Error('Error submitting form. Please try again.');
     }
-};
+  };
 
 
 
@@ -152,7 +154,15 @@ function Form({ selected, onBack }) {
 
   return (
     <div className='2xl:container py-2'>
-      <h1 className='text-center text-xl font-bold underline'>Registration Info</h1>
+      <div className=' w-[90%] mx-auto flex justify-between items-center m-2'>
+        <div onClick={onBack} className='flex justify-center items-center border-black lg:border-2 text-xl rounded-lg gap-1 cursor-pointer pl-3 pr-4 py-2'>
+          <span className='mt-1 lg:text-base text-2xl'><IoMdArrowRoundBack/></span>
+          <button className='font-semibold text-base hidden lg:block '> Back</button>
+        </div>
+        <h1 className='text-center text-xl lg:text-2xl font-bold underline'>Registration Info</h1>
+        <div></div>
+      </div>
+
       <div className='w-[90%] mx-auto grid grid-cols-4'>
         <div className='col-span-1 h-[600px] hidden lg:block py-6'>
           <div className="relative">
@@ -188,7 +198,7 @@ function Form({ selected, onBack }) {
                       <img src={URL.createObjectURL(image)} alt={`Selected ${index}`} className="w-full h-full object-cover rounded-md" />
                       <button onClick={() => handleRemoveImage(index)} className="top-0 right-1 absolute w-[20px] h-[20px] text-2xl text-red-600"><IoIosCloseCircle /></button>
                     </div>
-                  ))} 
+                  ))}
                 </div>
                 {showMaxLimitMessage && <p className="text-red-500">Maximum limit of 3 images exceeded.</p>}
               </div>
@@ -218,7 +228,7 @@ function Form({ selected, onBack }) {
                 <label className='font-semibold text-lg'>Phone Number<span className='text-red-600'>*</span></label>
                 <input
                   type="number"
-                  
+
                   value={phoneNumber}
                   onChange={handlePhoneChange}
                   placeholder='Enter the Phone Number'
@@ -247,7 +257,7 @@ function Form({ selected, onBack }) {
               <div className='flex justify-center items-center gap-5 w-full'>
                 <button onClick={handleSubmitForm} className='px-4 py-2 rounded-md font-medium bg-blue-900 text-white'>{submitButtonText}</button>
                 <button onClick={handleReset} className='px-4 py-2 rounded-md font-medium bg-red-700 text-white'>Reset</button>
-                <button onClick={onBack}>back</button>
+                <button onClick={onBack} className='font-semibold text-blue-800'> back</button>
               </div>
               <div className='flex flex-col justify-center items-center pb-24 pt-2'>
                 {formError && <p className="text-red-500 text text-center">{formError}</p>}

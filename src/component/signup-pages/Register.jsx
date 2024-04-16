@@ -71,7 +71,7 @@ function Register() {
     return (
         <div className='2xl:container'>
             <form onSubmit={handleSubmit}>
-                <div className='grid grid-cols-1 lg:grid-cols-2 h-screen gap-10 '>
+                <div className='grid grid-cols-1 lg:grid-cols-2  h-[85vh] md:h-screen overflow-hidden gap-10 '>
                     <div className='hidden lg:block'><img src="https://ik.imagekit.io/tsplamal/tspl/6538623.jpg?updatedAt=1712132971154" alt="" /></div>
                     <div className='space-y-4 flex flex-col justify-center items-center'>
                         <div className='flex flex-col space-y-10 justify-center w-[80%] md:w-[60%]'>

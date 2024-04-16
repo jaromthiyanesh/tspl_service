@@ -59,7 +59,7 @@ const SignIn = () => {
   return (
     <div className='2xl:container relative'>
       <div className='w-[90%] mx-auto'>
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 h-screen '>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 h-[85vh] md:h-screen overflow-hidden'>
           <div className='hidden lg:block'>
           <img src="https://ik.imagekit.io/tsplamal/tspl/6538623.jpg?updatedAt=1712132971154" alt="" />
           </div>

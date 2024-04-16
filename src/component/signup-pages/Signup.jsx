@@ -96,7 +96,7 @@ const Signup = () => {
     return (
         <div className='2xl:container'>
             <div className='w-[90%] mx-auto'>
-                <div className='signup-container grid lg:grid-cols-2 grid-cols-1 justify-around items-center w-full h-screen'>
+                <div className='signup-container grid lg:grid-cols-2 grid-cols-1 justify-around items-center w-full h-[85vh] md:h-screen overflow-hidden'>
 
                     <div className='signup-form hidden lg:block'>
                         <img src="https://ik.imagekit.io/tsplamal/tspl/6538623.jpg?updatedAt=1712132971154" alt="" />
@@ -132,7 +132,7 @@ const Signup = () => {
                             <button className='text-white font-medium bg-blue-800 py-1 w-full rounded' onClick={onSignup}>Next</button>
 
                             <p className='text-md lg:text-lg'>or</p>
-                            <p className='text-md lg:text-lg'>Already Have a Account <Link to={'/signin'}><span className='text-blue-800 cursor-pointer text-md lg:text-lg font-medium'>Login</span></Link></p>
+                            <p className='text-md lg:text-lg text-center'>Already Have a Account <Link to={'/signin'}><span className='text-blue-800 cursor-pointer text-md lg:text-lg font-medium'>Login</span></Link></p>
                             <div id='recaptcha'></div>
                         </div>
                     </div>
