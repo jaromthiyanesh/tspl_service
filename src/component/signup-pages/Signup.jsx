@@ -1,89 +1,66 @@
 import React, { useEffect, useState } from 'react';
-import 'react-phone-input-2/lib/style.css'; // Import the CSS for react-phone-input-2
+import 'react-phone-input-2/lib/style.css';
 import PhoneInput from 'react-phone-input-2';
 import OtpInput from 'react-otp-input';
 import { CgSpinner } from 'react-icons/cg';
 import { auth } from './firebase.config';
-import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Signup = () => {
     const [phone, setPhone] = useState('');
-    const [phnErrMsg,setPhnErrMsg]=useState("")
+    const [phnErrMsg, setPhnErrMsg] = useState('');
     const [open, setOpen] = useState(true);
     const [loading, setLoading] = useState(false);
     const [otp, setOtp] = useState('');
-    const [otpState,setOtpState]=useState("")
+    const [otpState, setOtpState] = useState('');
     const [user, setUser] = useState(null);
     const [timing, setTiming] = useState(59);
-    const navTo=useNavigate()
+    const navTo = useNavigate();
 
-    const PhoneInputValue=(value)=>{
-        setPhone(value)
-        setPhnErrMsg("")
-    }
-   
-
-
+    const PhoneInputValue = (value) => {
+        setPhone(value);
+        setPhnErrMsg('');
+    };
 
     const onSignup = async () => {
-        if (phone !== "") {
+        if (phone !== '') {
             try {
                 setPhnErrMsg('');
-                const phoneFormat = '+' + phone;
+                const phoneFormat = `+${phone}`;
                 const recaptcha = new RecaptchaVerifier(auth, 'recaptcha', {});
                 const confirmation = await signInWithPhoneNumber(auth, phoneFormat, recaptcha);
                 setUser(confirmation);
                 setOpen(false);
                 setPhone('');
                 const intervalId = setInterval(() => {
-                    setTiming(prevTiming => {
+                    setTiming((prevTiming) => {
                         const newTiming = prevTiming > 0 ? prevTiming - 1 : 0;
                         return newTiming < 10 ? '0' + newTiming : newTiming;
                     });
                 }, 1000);
             } catch (err) {
-                console.error("Firebase Authentication Error:", err);
-                setPhnErrMsg("Failed to sign up. Please try again later.");
-                setTimeout(() => {
-                    window.location.reload();
-                }, 3000);
+                console.error('Firebase Authentication Error:', err);
+                setPhnErrMsg('Failed to sign up. Please try again later.');
             }
         } else {
-            setPhnErrMsg("Please enter your phone number.");
-           
+            setPhnErrMsg('Please enter your phone number.');
         }
     };
-    
 
     const handleVerify = async () => {
-        // Perform OTP verification logic here
-        setLoading(true)
+        setLoading(true);
 
         try {
-            await user.confirm(otp)
-            // console.log("Verified Your OTP" + otp)
-            setLoading(false)
-            setOtpState("")
-            navTo('/register')
-            
-            // auth.onAuthStateChanged(function(user){
-            //     if(user){
-                   
-            //     }else{
-            //         navTo('/register')
-            //     }
-            // })
-        
-           
-
+            await user.confirm(otp);
+            setLoading(false);
+            setOtpState('');
+            navTo('/register');
         } catch (err) {
-            setLoading(false)
-            setOtpState("OTP Did Not Match")
-            console.log(err)
-            throw Error("OTP Did Not Match")
+            setLoading(false);
+            setOtpState('OTP Did Not Match');
+            console.error(err);
         }
-
     };
 
     return (
