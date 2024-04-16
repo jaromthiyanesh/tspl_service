@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { IoIosCloseCircle } from "react-icons/io";
 
 
 import { v4 } from 'uuid';
