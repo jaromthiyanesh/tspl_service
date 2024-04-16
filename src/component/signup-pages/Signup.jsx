@@ -87,7 +87,7 @@ const Signup = () => {
         } catch (err) {
             setLoading(false)
             setOtpState("OTP Did Not Match")
-            
+            console.log(err)
             throw Error("OTP Did Not Match")
         }
 
