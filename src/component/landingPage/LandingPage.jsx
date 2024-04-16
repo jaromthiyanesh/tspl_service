@@ -30,7 +30,7 @@ const LandingPage = () => {
   }, [img1, img2, img3]);
 
   return (
-    <div className='w-screen h-screen'>
+    <div className='w-screen h-screen overflow-hidden'>
       
       <div className='w-full h-full relative'>
         <Nav />

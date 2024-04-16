@@ -159,8 +159,8 @@ function Form({ selected, onBack }) {
           <span className='mt-1 lg:text-base text-2xl'><IoMdArrowRoundBack/></span>
           <button className='font-semibold text-base hidden lg:block '> Back</button>
         </div>
-        <h1 className='text-center text-xl lg:text-2xl font-bold underline'>Registration Info</h1>
-        <div></div>
+        <h1 className='text-center text-xl lg:text-2xl font-bold underline '>Registration Info</h1>
+        <div className='px-8'></div>
       </div>
 
       <div className='w-[90%] mx-auto grid grid-cols-4'>
