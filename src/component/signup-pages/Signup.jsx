@@ -42,6 +42,9 @@ const Signup = () => {
             } catch (err) {
                 console.error('Firebase Authentication Error:', err);
                 setPhnErrMsg('Failed to sign up. Please try again later.');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
             }
         } else {
             setPhnErrMsg('Please enter your phone number.');
