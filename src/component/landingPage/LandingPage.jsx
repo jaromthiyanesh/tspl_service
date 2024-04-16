@@ -32,7 +32,7 @@ const LandingPage = () => {
   return (
     <div className='w-screen h-screen overflow-hidden'>
       
-      <div className='w-full h-full relative'>
+      <div className='w-full h-full relative overflow-hidden'>
         <Nav />
         <div className='w-full h-full relative'>
           <img src={img} alt="BG IMG" className='w-full h-full object-cover' />
